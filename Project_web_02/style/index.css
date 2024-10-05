@@ -10,6 +10,8 @@ body{
     width: 100%;
     height: 120px;
     background-color: #fff;
+    position: fixed;
+    z-index: 1;
 }
 .logo-navigation{
     padding-top: 15px;
@@ -35,6 +37,17 @@ a{
     text-align: center;
     padding: 10px 10px;
 }
+.item-navi::after{
+    content: "";
+    display: block;
+    width: 0%;
+    height: 2px;
+    background-color: #000;
+    transition: 0.2s;
+}
+.item-navi:hover:after{
+    width: 100%;
+}
 .container-navigation{
     text-align: center;
 }
@@ -47,6 +60,10 @@ a{
 .fa{
     margin-left: 10px;
 }
+#banner{
+    padding-top: 120px;
+    z-index: 2;
+}
 .video_bn{
     width: 100%;
     height: 880px;
@@ -54,11 +71,62 @@ a{
     filter:grayscale(50%);
 }
 .title{
-    color: #fff;
-    margin-top: -600px;
-    margin-left: 500px;
+    color: #e2e2e2;
+    margin-top: -870px;
+    margin-left: 1600px;
     text-align: center;
-    font-size: 170px;
+    font-size: 40px;
     position: absolute;
     filter: drop-shadow(0px 6px 19px #000);
+}
+.item-cout-cart{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #858585;
+    margin-top: -30px;
+    margin-left: 118px;
+    position: absolute;
+}
+.cout-cart{
+    color: #fff;
+    font-size: 12px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#product{
+    width: 100%;
+    height: 1000px;
+    background-color: #fff;
+}
+.container-product_new{
+    padding-top: 100px;
+}
+.sub-con-product_new{
+    display: grid;
+    grid-template-columns:repeat(3, 1fr);
+}
+.card-product_new{
+    width: 400px;
+    height: 500px;
+    margin: auto;
+}
+.img-product_new{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.heading_new_produc{
+    text-align: center;
+    padding-bottom: 50px;
+}
+.title_new_product{
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+.name-product_new{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+}
+.sub_name-product_new{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
 }
