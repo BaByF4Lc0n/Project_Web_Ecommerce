@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Qwitcher+Grypen:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav class="main-navigation">
@@ -19,14 +20,30 @@
                 <div class="container-logo">
                     <a href="/Project_web_02/Page/index.html"><img src="/Project_web_02/Asset/logo/Canva_Logo.svg.png" alt="logo" class="logo-navigation"></a>
                 </div>
-                <ul class="menubar">    
+                <ul class="menubar">
                     <li class="item-navi"><a href="#" style="color: #000;">สินค้าใหม่</a></li>
-                    <li class="item-navi"><a href="#">ผู้หญิง</a></li>
-                    <li class="item-navi"><a href="#">ผู้ชาย</a></li>
+                    <li class="item-navi">
+                      <a href="#">ผู้หญิง</a>
+                      <ul class="dropdown-menu">
+                        <h3 class="title-dropdown">สินค้าใหม่</h3>
+                        <br>
+                        <li class="item-dropdown"><a href="#">เสื้อผ้า</a></li>
+                        <li class="item-dropdown"><a href="#">รองเท้า</a></li>
+                        <li class="item-dropdown"><a href="#">เครื่องประดับ</a></li>
+                      </ul>
+                    </li>
+                    <li class="item-navi">
+                      <a href="#">ผู้ชาย</a>
+                      <ul class="dropdown-menu">
+                        <li class="item-dropdown"><a href="#">เสื้อผ้า</a></li>
+                        <li class="item-dropdown"><a href="#">รองเท้า</a></li>
+                        <li class="item-dropdown"><a href="#">เครื่องประดับ</a></li>
+                      </ul>
+                    </li>
                     <li class="item-navi"><a href="#">เด็ก</a></li>
                     <li class="item-navi"><a href="#">ยอดนิยม</a></li>
                     <li class="item-navi"><a href="#">ส่วนลด</a></li>
-                </ul>
+                  </ul>
                 <div class="container_icon">
                     <a href="#"><i class="fa fa-user"></i></a>
                     <a href="#"><i class="fa fa-magnifying-glass"></i></a>
@@ -39,6 +56,12 @@
             </div>
         </div>
     </nav>
+<section id="button_upto">
+    <!-- ปุ่มเลื่อนขึ้นไปข้างบน -->
+        <div class="container-button_upto">
+            <a href="#banner"><div class="button_upto"><i class="fa-solid fa-chevron-up"></i></div></a>
+        </div>
+</section>
 <section id="banner">
     <div class="container_banner">
         <div class="container_video">
@@ -49,7 +72,7 @@
         </div>
     </div>
 </section>
-<section id="product">
+<section id="new_product">
     <div class="container-product_new">
         <div class="heading_new_produc">
             <h1 class="title_new_product">สินค้าใหม่</h1>
@@ -59,16 +82,22 @@
                 <img src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg" alt="img" class="img-product_new">
                 <h1 class="name-product_new">Hermes</h1>
                 <h2 class="sub_name-product_new">T-shirt</h2>
+                <h3 class="price-product_new">390 THB</h3>
+                <a href="#"><div class="bt_shop">SHOP</div></a>
             </div>
             <div class="card-product_new card-product">
                 <img src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA02-worn-1-0-0-800-800_g.jpg" alt="img" class="img-product_new">
                 <h1 class="name-product_new">Hermes</h1>
                 <h2 class="sub_name-product_new">T-shirt</h2>
+                <h3 class="price-product_new">390 THB</h3>
+                <a href="#"><div class="bt_shop">SHOP</div></a>
             </div>
             <div class="card-product_new card-product">
                 <img src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA30-worn-1-0-0-800-800_g.jpg" alt="img" class="img-product_new">
                 <h1 class="name-product_new">Hermes</h1>
                 <h2 class="sub_name-product_new">T-shirt</h2>
+                <h3 class="price-product_new">390 THB</h3>
+                <a href="#"><div class="bt_shop">SHOP</div></a>
             </div>
         </div>
     </div>
