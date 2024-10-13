@@ -12,11 +12,11 @@ body{
     height: 120px;
     background-color: #fff;
     position: fixed;
-    z-index: 1;
+    z-index: 6;
 }
 .logo-navigation{
-    padding-top: 15px;
-    width: 200px;
+    padding-top: 10px;
+    width: 220px;
     height: 90px;
     object-fit: cover;
 }
@@ -128,17 +128,159 @@ a{
     font-size: 12px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+/* section1 */
 #new_product{
-    width: 100%;
     height: 1000px;
+    width: 100%;
+    background-color: #fff;
+}
+.image_new{
+    width: 540px;
+    height: 780px;
+    object-fit: cover;
+    margin-left: 50px;
+}
+.image_new_product{
+    display: flex;
+}
+.sub_container_new_product{
+    padding-top: 30px;
+}
+.title_new_product{
+    color: #000;
+    font-size: 20px;
+    font-family:'Afacad Flux',sans-serif;
+}
+.text_new_product{
+    text-align: center;
+    margin-top: 10px;
+}
+.button_shop{
+    width: 120px;
+    height: 35px;
+    border-style: solid;
+    border-color: #000;
+    box-shadow: inset 0 0 0 0 #000;
+    color: #292929;
+    padding: 5px 5px;
+    font-family: 'Afacad Flux',sans-serif;
+}
+.button_shop:hover{
+    transition: 0.3s;
+    box-shadow: inset 120px 0 0 0 #000;
+    color: #ffffff;
+    padding-top: 5px;
+}
+.container_button_shop{
+    margin-left: 90%;
+}
+/* section2 */
+#new2_product{
+    height: 1000px;
+    width: 100%;
+    background-color: #fff;
+    padding-top: 70px;
+}
+.container_image_section2{
+    display: flex;
+}
+.image_newproduct_section2{
+    width: 500px;
+    height: 600px;
+    object-fit: cover;
+}
+.p_img_0{
+    position: absolute;
+    z-index: 1;
+    left: 10%;
+}
+.p_img_1{
+    width: 470px;
+    height: 670px;
+    margin-top: 50px;
+    position: absolute;
+    z-index: 1;
+    left: 34%;
+}
+.p_img_2{
+    width: 470px;
+    height: 650px;
+    margin-top: -50px;
+    position: absolute;
+    z-index: 0;
+    left: 58.6%;
+}
+.text_new_product_2{
+    text-align: right;
+    margin-right: 55px;
+    margin-top: 35%;
+}
+.container_button_shop_2{
+    margin-left: 90%;
+    margin-top: 50px;
+}
+/* section3 */
+#new3_product{
+    height: 900px;
+    width: 100%;
+    background-color: #fff;
+    padding-top: 70px;
+}
+.container_image_section2{
+    display: flex;
+}
+.p_img2_0{
+    position: absolute;
+    z-index: 1;
+    left: 10%;
+    width: 600px;
+    height: 650px;
+    object-fit: cover;
+}
+.p_img2_1{
+    width: 400px;
+    height: 300px;
+    margin-top: 50px;
+    position: absolute;
+    z-index: 1;
+    left: 40%;
+    margin-top: 21%;
+    object-fit: cover;
+}
+.p_img2_2{
+    width: 850px;
+    height: 400px;
+    position: absolute;
+    z-index: 0;
+    left: 50%;
+    object-fit: cover;
+}
+.text_new_product_3{
+    text-align: right;
+    margin-right: 10%;
+    margin-top: 35%;
+}
+.container_button_shop_3{
+    margin-left: 90%;
+    margin-top: 30px;
+}
+/* section4 */
+#new4_product{
+    width: 100%;
+    height: 900px;
     background-color: #fff;
 }
 .container-product_new{
-    padding-top: 100px;
+    padding-top: 150px;
 }
 .sub-con-product_new{
+    cursor: pointer;
+    --spacer: 6%;
     display: grid;
-    grid-template-columns:repeat(3, 1fr);
+    grid-auto-flow: column;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    padding: 0 var(--spacer) var(--spacer);
 }
 .card-product_new{
     width: 400px;
@@ -152,7 +294,7 @@ a{
 }
 .heading_new_produc{
     text-align: center;
-    padding-bottom: 50px;
+    padding-bottom: 20px;
 }
 .title_new_product{
     font-family: 'Noto Sans Thai', sans-serif;
@@ -209,4 +351,47 @@ a{
     transition: 0.3s;
     color: #fff;
     box-shadow: inset 100px 0 0 0 #000;
+}
+/* footer */
+#footer{
+    width: 100%;
+    height: 500px;
+    background-color: #161616;
+}
+.container-footer{
+    padding-top: 60px;
+}
+.list_footer{
+    list-style: none;
+}
+.container_contact{
+    width: 120px;
+    height: 200px;
+    color: #a1a1a1;
+    margin-left: 50px;
+}
+.container_link-contact{
+    color: #ffffff;
+    text-decoration: underline;
+}
+.sub_container_footer{
+    display: flex;
+    justify-content: center;
+}
+/* logo_footer */
+.container-img_f{
+    width: 600px;
+    height: 200px;
+    margin: 0 auto;
+}
+.image_footer{
+    width: 100%;
+    height: 250px;
+    padding: 20px;
+    object-fit: cover;
+}
+.title_brand_footer{
+    color: #ffffff;
+    font-size: 14px;
+    text-align: center;
 }
