@@ -1,0 +1,122 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+body{
+    background-color: #000;
+}
+.main-navigation{
+    width: 100%;
+    height: 120px;
+    background-color: #fff;
+    position: fixed;
+    z-index: 6;
+}
+.logo-navigation{
+    padding-top: 10px;
+    width: 220px;
+    height: 90px;
+    object-fit: cover;
+}
+a{
+    text-decoration: none;
+}
+.menubar{
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    margin-top: -10px;
+    position: relative;
+}
+.item-navi,a{
+    color: #292929;
+}
+.item-navi{
+    position: relative;
+    width: 90px;
+    height: 40px;
+    text-align: center;
+    padding: 10px 10px;
+    z-index: 1;
+}
+.item-navi::after{
+    content: "";
+    display: block;
+    width: 0%;
+    height: 2px;
+    background-color: #000;
+    transition: 0.2s;
+}
+.item-navi:hover:after{
+    width: 100%;
+}
+/* dropdown */
+.dropdown-menu {
+    position: absolute;
+    width: 500px;
+    height: 300px;
+    background-color: #ffffff;
+    top: 35px;
+    display: none;
+    list-style: none;
+    text-align: left;
+    padding-left: 20px;
+}
+.dropdown-menu .menubar {
+    margin-bottom: 10px;
+}
+.dropdown-menu a {
+    text-decoration: none;
+    color: #000000;
+}
+.dropdown-menu a:hover {
+    color: #23527c;
+} 
+.item-navi:hover .dropdown-menu {
+    display: block;
+}
+.title-dropdown{
+    text-align: left;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+.container-navigation{
+    text-align: center;
+}
+.container_icon{
+    margin-left: 90%;
+    color: #000;
+    font-size: 20px;
+    margin-top: -90px;
+}
+.fa{
+    margin-left: 10px;
+}
+/* cart */
+.item-cout-cart{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #858585;
+    margin-top: -30px;
+    margin-left: 118px;
+    position: absolute;
+}
+.cout-cart{
+    color: #fff;
+    font-size: 12px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+/* image_dropdown */
+.img-dropdown{
+    padding-top: 15px;
+    width: 150px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.container-img_dropdown{
+    display: block;
+}

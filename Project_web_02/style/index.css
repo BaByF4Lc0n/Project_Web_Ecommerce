@@ -61,7 +61,8 @@ a{
     top: 35px;
     display: none;
     list-style: none;
-    text-align: center;
+    text-align: left;
+    padding-left: 20px;
 }
 .dropdown-menu .menubar {
     margin-bottom: 10px;
@@ -114,6 +115,7 @@ a{
     position: absolute;
     filter: drop-shadow(0px 6px 19px #000);
 }
+/* cart */
 .item-cout-cart{
     width: 15px;
     height: 15px;
@@ -394,4 +396,15 @@ a{
     color: #ffffff;
     font-size: 14px;
     text-align: center;
+}
+/* image_dropdown */
+.img-dropdown{
+    padding-top: 15px;
+    width: 150px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.container-img_dropdown{
+    display: block;
 }
