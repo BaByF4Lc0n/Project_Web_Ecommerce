@@ -19,18 +19,18 @@ RED = (255, 0, 0)
 player_size = 50
 player_x = SCREEN_WIDTH // 2
 player_y = SCREEN_HEIGHT - player_size - 10
-player_speed = 5
+player_speed = 2
 
 # Bullet settings
 bullet_width = 5
 bullet_height = 10
-bullet_speed = 10
+bullet_speed = 25
 bullets = []
 bullet_fired = False  # Control single bullet firing
 
 # Target settings
 target_size = 50
-target_speed = 2
+target_speed = 3
 targets = []
 
 # Create a clock object to control the game's framerate
@@ -162,14 +162,14 @@ while running:
         game_over_text = font.render("Game Over!", True, RED)
         screen.blit(game_over_text, (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2))
         pygame.display.update()
-        pygame.time.delay(2000)
+        pygame.time.delay(1000)
         running = False
 
     # Update the display
     pygame.display.update()
 
     # Control the frame rate
-    clock.tick(60)
+    clock.tick(140)
 
-# Quit the game
+# quit the game
 pygame.quit() 
