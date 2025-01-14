@@ -20,6 +20,7 @@ BLUE = (0, 0, 255)
 PLAYER_SIZE = 50
 PLAYER_SPEED = 5
 BULLET_SPEED = 7
+SHOOT_DELAY = 500  # milliseconds
 
 # Timer settings
 GAME_DURATION = 60  # 1 minute
@@ -35,6 +36,7 @@ class Player(pygame.sprite.Sprite):
         self.speed = PLAYER_SPEED
         self.bullets = pygame.sprite.Group()
         self.score = 0
+        self.last_shot = pygame.time.get_ticks()
 
     def update(self, keys, up, down, left, right, shoot):
         if keys[up]:
@@ -45,9 +47,11 @@ class Player(pygame.sprite.Sprite):
             self.rect.x -= self.speed
         if keys[right]:
             self.rect.x += self.speed
-        if keys[shoot]:
+        now = pygame.time.get_ticks()
+        if keys[shoot] and now - self.last_shot > SHOOT_DELAY:
             bullet = Bullet(self.rect.centerx, self.rect.top)
             self.bullets.add(bullet)
+            self.last_shot = now
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
@@ -144,5 +148,20 @@ while running:
 
     pygame.display.flip()
     pygame.time.Clock().tick(60)
+
+# Determine winner
+if player1.score > player2.score:
+    winner_text = "Player 1 Wins!"
+elif player2.score > player1.score:
+    winner_text = "Player 2 Wins!"
+else:
+    winner_text = "It's a Tie!"
+
+# Display winner
+screen.fill(BLACK)
+winner_text_surface = font.render(winner_text, True, WHITE)
+screen.blit(winner_text_surface, (WIDTH // 2 - winner_text_surface.get_width() // 2, HEIGHT // 2 - winner_text_surface.get_height() // 2))
+pygame.display.flip()
+pygame.time.wait(3000)
 
 pygame.quit()
