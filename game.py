@@ -34,6 +34,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.center = (x, y)
         self.speed = PLAYER_SPEED
         self.bullets = pygame.sprite.Group()
+        self.score = 0
 
     def update(self, keys, up, down, left, right, shoot):
         if keys[up]:
@@ -68,13 +69,31 @@ class Bullet(pygame.sprite.Sprite):
         if self.rect.bottom < 0:
             self.kill()
 
-# Initialize players
+# Target class
+class Target(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.Surface((30, 30))
+        self.image.fill(WHITE)
+        self.rect = self.image.get_rect()
+        self.rect.x = random.randint(0, WIDTH - self.rect.width)
+        self.rect.y = random.randint(-100, -40)
+        self.speed = random.randint(1, 5)
+
+    def update(self):
+        self.rect.y += self.speed
+        if self.rect.top > HEIGHT:
+            self.kill()
+
+# Initialize players and targets
 player1 = Player(RED, WIDTH // 4, HEIGHT - PLAYER_SIZE)
 player2 = Player(BLUE, 3 * WIDTH // 4, HEIGHT - PLAYER_SIZE)
 
 players = pygame.sprite.Group()
 players.add(player1)
 players.add(player2)
+
+targets = pygame.sprite.Group()
 
 # Game loop
 running = True
@@ -92,16 +111,31 @@ while running:
     player1.update(keys, pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d, pygame.K_SPACE)
     player2.update(keys, pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, pygame.K_RETURN)
 
-    # Draw players
+    # Spawn targets
+    if random.randint(1, 20) == 1:
+        target = Target()
+        targets.add(target)
+
+    # Update targets
+    targets.update()
+
+    # Draw players and targets
     players.draw(screen)
     player1.draw(screen)
     player2.draw(screen)
+    targets.draw(screen)
 
     # Check for collisions
-    if pygame.sprite.spritecollide(player1, player2.bullets, True):
-        print("Player 2 hit Player 1!")
-    if pygame.sprite.spritecollide(player2, player1.bullets, True):
-        print("Player 1 hit Player 2!")
+    for player in players:
+        hits = pygame.sprite.groupcollide(player.bullets, targets, True, True)
+        player.score += len(hits)
+
+    # Display scores
+    font = pygame.font.Font(None, 36)
+    score_text1 = font.render(f"Player 1 Score: {player1.score}", True, WHITE)
+    score_text2 = font.render(f"Player 2 Score: {player2.score}", True, WHITE)
+    screen.blit(score_text1, (10, 10))
+    screen.blit(score_text2, (WIDTH - 200, 10))
 
     # Check timer
     elapsed_time = time.time() - start_time
