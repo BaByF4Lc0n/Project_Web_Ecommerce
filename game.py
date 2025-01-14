@@ -50,7 +50,7 @@ class Player(pygame.sprite.Sprite):
             self.rect.x += self.speed
         now = pygame.time.get_ticks()
         if keys[shoot] and now - self.last_shot > SHOOT_DELAY:
-            bullet = Bullet(self.rect.centerx, self.rect.top)
+            bullet = Bullet(self.rect.centerx, self.rect.top, WHITE)
             self.bullets.add(bullet)
             self.last_shot = now
 
@@ -61,13 +61,14 @@ class Player(pygame.sprite.Sprite):
 
 # Bullet class
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, x, y):
+    def __init__(self, x, y, color):
         super().__init__()
         self.image = pygame.Surface((10, 20))
-        self.image.fill(WHITE)
+        self.image.fill(color)
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
         self.speed = BULLET_SPEED
+        self.color = color
 
     def update(self):
         self.rect.y -= self.speed
