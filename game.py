@@ -15,6 +15,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
+GREEN = (0, 255, 0)
 
 # Player settings
 PLAYER_SIZE = 50
@@ -75,14 +76,15 @@ class Bullet(pygame.sprite.Sprite):
 
 # Target class
 class Target(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, color):
         super().__init__()
         self.image = pygame.Surface((30, 30))
-        self.image.fill(WHITE)
+        self.image.fill(color)
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(0, WIDTH - self.rect.width)
         self.rect.y = random.randint(-100, -40)
         self.speed = random.randint(1, 5)
+        self.color = color
 
     def update(self):
         self.rect.y += self.speed
@@ -117,7 +119,8 @@ while running:
 
     # Spawn targets
     if random.randint(1, 20) == 1:
-        target = Target()
+        color = random.choice([WHITE, GREEN, RED])
+        target = Target(color)
         targets.add(target)
 
     # Update targets
@@ -132,17 +135,26 @@ while running:
     # Check for collisions
     for player in players:
         hits = pygame.sprite.groupcollide(player.bullets, targets, True, True)
-        player.score += len(hits)
+        for hit in hits:
+            if hit.color == WHITE:
+                player.score += 1
+            elif hit.color == GREEN:
+                player.score *= 2
+            elif hit.color == RED:
+                player.score -= 2
 
-    # Display scores
+    # Display scores and timer
     font = pygame.font.Font(None, 36)
     score_text1 = font.render(f"Player 1 Score: {player1.score}", True, WHITE)
     score_text2 = font.render(f"Player 2 Score: {player2.score}", True, WHITE)
     screen.blit(score_text1, (10, 10))
     screen.blit(score_text2, (WIDTH - 200, 10))
 
-    # Check timer
     elapsed_time = time.time() - start_time
+    timer_text = font.render(f"Time: {int(GAME_DURATION - elapsed_time)}", True, WHITE)
+    screen.blit(timer_text, (WIDTH // 2 - timer_text.get_width() // 2, 10))
+
+    # Check timer
     if elapsed_time >= GAME_DURATION:
         running = False
 
