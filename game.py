@@ -1,8 +1,6 @@
 import pygame
-print(pygame.ver)
-
-from pygame.locals import *
 import random
+import time
 
 # Initialize Pygame
 pygame.init()
@@ -10,120 +8,107 @@ pygame.init()
 # Screen dimensions
 WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Local Multiplayer Game")
+pygame.display.set_caption("Local Multiplayer Shooting Game")
 
 # Colors
 WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 
-# Clock
-clock = pygame.time.Clock()
-FPS = 60
-
 # Player settings
-PLAYER_WIDTH, PLAYER_HEIGHT = 50, 60
+PLAYER_SIZE = 50
 PLAYER_SPEED = 5
-SKILL_COOLDOWN = 500
+BULLET_SPEED = 7
 
-# Fireball settings
-FIREBALL_SPEED = 7
+# Timer settings
+GAME_DURATION = 60  # 1 minute
 
+# Player class
+class Player(pygame.sprite.Sprite):
+    def __init__(self, color, x, y):
+        super().__init__()
+        self.image = pygame.Surface((PLAYER_SIZE, PLAYER_SIZE))
+        self.image.fill(color)
+        self.rect = self.image.get_rect()
+        self.rect.center = (x, y)
+        self.speed = PLAYER_SPEED
+        self.bullets = pygame.sprite.Group()
 
-class Fireball:
-    def __init__(self, x, y, color, direction):
-        self.rect = pygame.Rect(x, y, 10, 10)
-        self.color = color
-        self.direction = direction
-
-    def move(self):
-        self.rect.y += FIREBALL_SPEED * self.direction
-
-    def draw(self, screen):
-        pygame.draw.ellipse(screen, self.color, self.rect)
-
-
-class Player:
-    def __init__(self, x, y, color, controls):
-        self.rect = pygame.Rect(x, y, PLAYER_WIDTH, PLAYER_HEIGHT)
-        self.color = color
-        self.controls = controls
-        self.vel_x = 0
-        self.vel_y = 0
-        self.skills = []
-        self.shield = False
-        self.last_skill_time = 0
-
-    def move(self):
-        keys = pygame.key.get_pressed()
-        self.vel_x = 0
-        self.vel_y = 0
-
-        if keys[self.controls['left']]:
-            self.vel_x = -PLAYER_SPEED
-        if keys[self.controls['right']]:
-            self.vel_x = PLAYER_SPEED
-        if keys[self.controls['up']]:
-            self.vel_y = -PLAYER_SPEED
-        if keys[self.controls['down']]:
-            self.vel_y = PLAYER_SPEED
-
-        self.rect.x += self.vel_x
-        self.rect.y += self.vel_y
-
-        # Keep player in bounds
-        self.rect.x = max(0, min(WIDTH - PLAYER_WIDTH, self.rect.x))
-        self.rect.y = max(0, min(HEIGHT - PLAYER_HEIGHT, self.rect.y))
-
-    def use_skill(self, skill_type):
-        current_time = pygame.time.get_ticks()
-        if current_time - self.last_skill_time > SKILL_COOLDOWN:
-            self.last_skill_time = current_time
-            if skill_type == "fireball":
-                direction = -1 if self.vel_y < 0 else 1
-                fireball = Fireball(self.rect.centerx, self.rect.top, self.color, direction)
-                self.skills.append(fireball)
-            elif skill_type == "shield":
-                self.shield = True
-                pygame.time.set_timer(pygame.USEREVENT + 1, 2000)  # Shield lasts 2 seconds
+    def update(self, keys, up, down, left, right, shoot):
+        if keys[up]:
+            self.rect.y -= self.speed
+        if keys[down]:
+            self.rect.y += self.speed
+        if keys[left]:
+            self.rect.x -= self.speed
+        if keys[right]:
+            self.rect.x += self.speed
+        if keys[shoot]:
+            bullet = Bullet(self.rect.centerx, self.rect.top)
+            self.bullets.add(bullet)
 
     def draw(self, screen):
-        pygame.draw.rect(screen, self.color, self.rect)
-        if self.shield:
-            pygame.draw.ellipse(screen, BLUE, self.rect.inflate(20, 20), 2)
+        screen.blit(self.image, self.rect)
+        self.bullets.draw(screen)
+        self.bullets.update()
 
+# Bullet class
+class Bullet(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__()
+        self.image = pygame.Surface((10, 20))
+        self.image.fill(WHITE)
+        self.rect = self.image.get_rect()
+        self.rect.center = (x, y)
+        self.speed = BULLET_SPEED
 
-# Main Game Loop
-player1 = Player(100, 100, RED, {
-    'left': K_a, 'right': K_d, 'up': K_w, 'down': K_s
-})
-players = [player1]
+    def update(self):
+        self.rect.y -= self.speed
+        if self.rect.bottom < 0:
+            self.kill()
 
+# Initialize players
+player1 = Player(RED, WIDTH // 4, HEIGHT - PLAYER_SIZE)
+player2 = Player(BLUE, 3 * WIDTH // 4, HEIGHT - PLAYER_SIZE)
+
+players = pygame.sprite.Group()
+players.add(player1)
+players.add(player2)
+
+# Game loop
 running = True
+start_time = time.time()
+
 while running:
-    screen.fill(WHITE)
+    screen.fill(BLACK)
+    keys = pygame.key.get_pressed()
 
     for event in pygame.event.get():
-        if event.type == QUIT:
+        if event.type == pygame.QUIT:
             running = False
-        elif event.type == pygame.USEREVENT + 1:
-            player1.shield = False  # Disable shield after 2 seconds
 
-    keys = pygame.key.get_pressed()
-    if keys[K_SPACE]:
-        player1.use_skill("fireball")
+    # Update players
+    player1.update(keys, pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d, pygame.K_SPACE)
+    player2.update(keys, pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, pygame.K_RETURN)
 
-    for player in players:
-        player.move()
-        player.draw(screen)
-        for skill in player.skills[:]:
-            if isinstance(skill, Fireball):
-                skill.move()
-                skill.draw(screen)
-                if skill.rect.bottom < 0 or skill.rect.top > HEIGHT:
-                    player.skills.remove(skill)
+    # Draw players
+    players.draw(screen)
+    player1.draw(screen)
+    player2.draw(screen)
+
+    # Check for collisions
+    if pygame.sprite.spritecollide(player1, player2.bullets, True):
+        print("Player 2 hit Player 1!")
+    if pygame.sprite.spritecollide(player2, player1.bullets, True):
+        print("Player 1 hit Player 2!")
+
+    # Check timer
+    elapsed_time = time.time() - start_time
+    if elapsed_time >= GAME_DURATION:
+        running = False
 
     pygame.display.flip()
-    clock.tick(FPS)
+    pygame.time.Clock().tick(60)
 
 pygame.quit()
